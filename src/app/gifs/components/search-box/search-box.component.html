@@ -1,4 +1,10 @@
 <div>
   <h5>Search:</h5>
-  <input type="text" class="form-control" placeholder="search gif...">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="search gif..."
+    (keyup.enter)="searchTag()"
+    #txtTagInput
+  >
 </div>

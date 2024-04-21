@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild,
+  type OnInit,
+} from '@angular/core';
 
 @Component({
   selector: 'app-search-box',
@@ -8,4 +14,12 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 })
 export class SearchBoxComponent implements OnInit {
   ngOnInit(): void {}
+
+  @ViewChild('txtTagInput')
+  public txtTagInput!: ElementRef<HTMLInputElement>;
+
+  public searchTag() {
+    const newTag = this.txtTagInput.nativeElement.value;
+    console.log('newTag --->', newTag);
+  }
 }
