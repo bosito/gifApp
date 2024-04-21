@@ -7,11 +7,14 @@ import { IGif, SearchResponse } from '../interfaces/gifs.interfaces';
   providedIn: 'root',
 })
 export class GifsService {
+  private localStorageKey: string = 'tagHistory';
   private tagsHIstoryLocal: string[] = [];
   private apiKey: string = 'rQG2rlNQgv5xKA2uDYPtpeStCNh3o9AS';
   public gifList: IGif[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.getLocalStorage();
+  }
 
   public get tagsHistory() {
     return [...this.tagsHIstoryLocal];
@@ -32,6 +35,23 @@ export class GifsService {
 
     // we added a limit the items in our list
     this.tagsHIstoryLocal = this.tagsHistory.splice(0, 10);
+    this.saveLocalStorage();
+  }
+
+  private saveLocalStorage() {
+    localStorage.setItem(
+      this.localStorageKey,
+      JSON.stringify(this.tagsHIstoryLocal)
+    );
+  }
+
+  private getLocalStorage(): void {
+    const tagHistoryLocalStorage = localStorage.getItem(this.localStorageKey);
+
+    if (!tagHistoryLocalStorage) return;
+    const tagHistoryParse: string[] = JSON.parse(tagHistoryLocalStorage);
+
+    this.tagsHIstoryLocal = tagHistoryParse;
   }
 
   public searchTag(tag: string) {
@@ -43,8 +63,6 @@ export class GifsService {
       .set('api_key', this.apiKey)
       .set('q', tag)
       .set('limit', '10');
-
-    console.log('tag -->', tag);
 
     this.http
       .get<SearchResponse>(`https://api.giphy.com/v1/gifs/search`, { params })

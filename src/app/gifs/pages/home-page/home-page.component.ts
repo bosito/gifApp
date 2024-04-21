@@ -9,7 +9,14 @@ import { GifsService } from '../../services/gifs.service';
 export class HomePageComponent implements OnInit {
   constructor(private gifService: GifsService) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.initSearchGif();
+  }
+
+  private initSearchGif() {
+    const [lastSearch] = this.gifService.tagsHistory;
+    this.gifService.searchTag(lastSearch);
+  }
 
   public get gifList() {
     return this.gifService.gifList;
