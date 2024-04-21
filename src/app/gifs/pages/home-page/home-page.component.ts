@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
+import { GifsService } from '../../services/gifs.service';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit {
-  ngOnInit(): void {}
+  constructor(private gifService: GifsService) {}
+
+  public ngOnInit(): void {}
+
+  public get gifList() {
+    return this.gifService.gifList;
+  }
 }

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild,
+  type OnInit,
+} from '@angular/core';
 import { GifsService } from 'src/app/gifs/services/gifs.service';
 
 @Component({
@@ -13,5 +18,9 @@ export class SidebarComponent implements OnInit {
 
   public get tagsHistory() {
     return this.gifsService.tagsHistory;
+  }
+
+  public reSearch(tag: string) {
+    this.gifsService.searchTag(tag);
   }
 }

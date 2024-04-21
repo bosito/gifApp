@@ -22,7 +22,7 @@ export class SearchBoxComponent implements OnInit {
   public txtTagInput!: ElementRef<HTMLInputElement>;
 
   public searchTag() {
-    const newTag = this.txtTagInput.nativeElement.value;
+    const newTag: string = this.txtTagInput.nativeElement.value;
     this.gifsService.searchTag(newTag);
     this.txtTagInput.nativeElement.value = '';
   }
