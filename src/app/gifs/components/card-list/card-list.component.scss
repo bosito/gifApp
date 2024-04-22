@@ -1,3 +1,8 @@
 :host {
   display: block;
 }
+
+.fixed_scroll{
+  overflow: auto;
+  max-height: 80vh;
+}
